@@ -1,0 +1,4 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+GET /products,2500,15275,0,44594,10346.62,19.200%,9.42681,7707.08,0.98,837191.4
+GET /heavy-cpu,2500,9310,0,32655,7205.93,31.840%,9.34635,9.66,0.78,1058.3
+TOTAL,5000,12292,0,44594,9401.29,25.520%,18.68858,7649.27,1.75,419124.9
