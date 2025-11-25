@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Produto</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <h1>Produto</h1>
+    <div id="product"></div>
+    <script>
+      const id = new URLSearchParams(location.search).get('id')
+      if (id)
+        fetch(`/products/${id}`)
+          .then(r => r.json())
+          .then(j => {
+            document.getElementById('product').textContent = JSON.stringify(
+              j,
+              null,
+              2
+            )
+          })
+    </script>
+  </body>
+</html>

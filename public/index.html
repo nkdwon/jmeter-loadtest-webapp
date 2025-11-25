@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Testes de Carga - JMeter</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 Sistema Web para Testes com JMeter</h1>
+        <p>Plataforma completa para testes de performance e carga</p>
+      </header>
+
+      <main>
+        <!-- Seção de Produtos -->
+        <section class="section">
+          <div class="section-header">
+            <h2>📦 Gerenciamento de Produtos</h2>
+            <div class="controls">
+              <input
+                type="number"
+                id="productLimit"
+                placeholder="Qtd."
+                value="20"
+                min="1"
+                max="5000"
+              />
+              <button class="btn-primary" onclick="loadProducts()">
+                🔄 Carregar Produtos
+              </button>
+              <button class="btn-success" onclick="openCreateModal()">
+                ➕ Novo Produto
+              </button>
+              <button class="btn-secondary" onclick="refreshTable()" id="refreshBtn" style="display: none">
+                ♻️ Atualizar Tabela
+              </button>
+            </div>
+          </div>
+
+          <div id="productsStats" class="grid" style="margin-bottom: 20px"></div>
+
+          <div class="table-container" id="productsTableContainer">
+            <div class="empty-state">
+              <p>Clique em "Carregar Produtos" para visualizar os dados</p>
+            </div>
+          </div>
+
+          <div id="pagination" class="pagination"></div>
+        </section>
+
+        <!-- Seção de Upload -->
+        <section class="section">
+          <div class="section-header">
+            <h2>📤 Upload de Arquivos</h2>
+          </div>
+          <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Selecione um arquivo:</label>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <input type="file" name="file" required />
+                <button type="submit" class="btn-primary">
+                  📤 Enviar Arquivo
+                </button>
+              </div>
+            </div>
+          </form>
+          <div id="uploadStatus"></div>
+        </section>
+
+        <!-- Seção de Status -->
+        <section class="section">
+          <div class="section-header">
+            <h2>📊 Status da Aplicação</h2>
+            <button class="btn-primary" onclick="loadStatus()">
+              🔄 Atualizar Status
+            </button>
+          </div>
+          <pre id="statusBox">Clique em "Atualizar Status" para ver informações</pre>
+        </section>
+
+        <!-- Seção de Testes de Carga -->
+        <section class="section">
+          <div class="section-header">
+            <h2>⚡ Testes de Performance</h2>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h3 style="color: var(--primary); margin-bottom: 15px">
+                🔥 CPU Pesado
+              </h3>
+              <p style="margin-bottom: 15px; color: #64748b">
+                Simula 50M de iterações matemáticas
+              </p>
+              <button class="btn-warning" onclick="cpuTest()" style="width: 100%">
+                Executar Teste
+              </button>
+              <pre id="cpuResult" style="margin-top: 15px; display: none"></pre>
+            </div>
+
+            <div class="card">
+              <h3 style="color: var(--primary); margin-bottom: 15px">
+                ⏱️ I/O Pesado
+              </h3>
+              <p style="margin-bottom: 15px; color: #64748b">
+                Simula operação bloqueante de 3s
+              </p>
+              <button class="btn-warning" onclick="ioTest()" style="width: 100%">
+                Executar Teste
+              </button>
+              <pre id="ioResult" style="margin-top: 15px; display: none"></pre>
+            </div>
+
+            <div class="card">
+              <h3 style="color: var(--primary); margin-bottom: 15px">
+                🎲 Delay Aleatório
+              </h3>
+              <p style="margin-bottom: 15px; color: #64748b">
+                Latência variável entre 1-5s
+              </p>
+              <button
+                class="btn-warning"
+                onclick="delayTest()"
+                style="width: 100%"
+              >
+                Executar Teste
+              </button>
+              <pre id="delayResult" style="margin-top: 15px; display: none"></pre>
+            </div>
+
+            <div class="card">
+              <h3 style="color: var(--primary); margin-bottom: 15px">
+                📊 Muitos Itens
+              </h3>
+              <p style="margin-bottom: 15px; color: #64748b">
+                Transfere 50k itens em JSON
+              </p>
+              <button
+                class="btn-warning"
+                onclick="manyItemsTest()"
+                style="width: 100%"
+              >
+                Executar Teste
+              </button>
+              <pre
+                id="manyItemsResult"
+                style="margin-top: 15px; display: none"
+              ></pre>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal para Criar/Editar Produto -->
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Novo Produto</h3>
+          <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        <form id="productForm">
+          <input type="hidden" id="productId" />
+          <div class="form-group">
+            <label>Nome do Produto:</label>
+            <input type="text" id="productName" required />
+          </div>
+          <div class="form-group">
+            <label>Descrição:</label>
+            <textarea id="productDescription" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Preço (R$):</label>
+            <input
+              type="number"
+              id="productPrice"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+          <div style="display: flex; gap: 10px">
+            <button type="submit" class="btn-success" style="flex: 1">
+              💾 Salvar
+            </button>
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="closeModal()"
+              style="flex: 1"
+            >
+              ❌ Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Visualizar Produto -->
+    <div id="viewProductModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📦 Detalhes do Produto</h3>
+          <button class="close-btn" onclick="closeViewModal()">×</button>
+        </div>
+        <div id="productDetails"></div>
+        <button
+          class="btn-primary"
+          onclick="closeViewModal()"
+          style="width: 100%; margin-top: 20px"
+        >
+          Fechar
+        </button>
+      </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>
