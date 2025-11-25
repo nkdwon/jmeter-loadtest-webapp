@@ -104,8 +104,9 @@ function updateStats(products) {
   const total = products.length
   const avgPrice =
     products.reduce((sum, p) => sum + parseFloat(p.price || 0), 0) / total || 0
-  const maxPrice = Math.max(...products.map(p => parseFloat(p.price || 0)), 0)
-  const minPrice = Math.min(...products.map(p => parseFloat(p.price || 0)), 0)
+  const prices = products.map(p => parseFloat(p.price || 0)).filter(p => p > 0)
+  const maxPrice = Math.max(...prices)
+  const minPrice = Math.min(...prices)
 
   document.getElementById('productsStats').innerHTML = `
     <div class="stat-card">

@@ -72,10 +72,9 @@ main {
 
 .section-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  margin-bottom: 25px;
   gap: 15px;
 }
 
@@ -85,6 +84,7 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
 }
 
 .section-header h2::before {
@@ -96,8 +96,8 @@ main {
 .controls {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
   align-items: center;
+  flex-shrink: 0;
 }
 
 button {
@@ -244,8 +244,9 @@ tbody tr:last-child td {
 }
 
 .btn-sm {
-  padding: 6px 12px;
-  font-size: 0.875rem;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  min-width: auto;
 }
 
 .badge {
@@ -425,8 +426,8 @@ textarea {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
 }
 
 .card {
@@ -444,6 +445,7 @@ textarea {
 
 .stat-card {
   text-align: center;
+  padding: 15px;
 }
 
 .stat-value {
@@ -458,6 +460,7 @@ textarea {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 pre {
@@ -511,10 +514,15 @@ pre {
 
   .controls {
     width: 100%;
+    flex-wrap: wrap;
   }
 
   button {
     width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
   }
 
   .table-container {
@@ -524,5 +532,11 @@ pre {
   th,
   td {
     padding: 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
