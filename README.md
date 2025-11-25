@@ -1,196 +1,322 @@
-# jmeter-loadtest-webapp
+# 🚀 JMeter Load Test - Web Application
 
-Aplicação web desenvolvida para realizar testes de carga com Apache JMeter, simulando diversos cenários de performance e escalabilidade.
+Aplicação Node.js/Express desenvolvida para **testes de carga não-funcionais** usando Apache JMeter.
 
-## 📋 Descrição do Projeto
+[![Node.js](https://img.shields.io/badge/Node.js-20.x-green)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.18-blue)](https://expressjs.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-3-orange)](https://www.sqlite.org/)
+[![JMeter](https://img.shields.io/badge/JMeter-5.6.3-red)](https://jmeter.apache.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-Este projeto é uma aplicação web completa construída com Node.js/Express e banco de dados SQLite, desenvolvida especificamente para testes de performance não-funcionais. A aplicação permite avaliar o comportamento do sistema sob diferentes cenários de carga:
+---
 
-- **Carga esparsa**: Poucos usuários simultâneos
-- **Carga em crescimento**: Aumento gradual de usuários
-- **Rajada de carga**: Pico súbito de acessos simultâneos
+## 📊 Sobre o Projeto
 
-## 🚀 Funcionalidades
+Este projeto foi desenvolvido como parte do **Desafio MAD (Metodologias Ágeis e DevOps)** da PUC, com o objetivo de:
 
-### CRUD de Produtos
-- **GET /products** - Lista todos os produtos (com SQLite)
-- **GET /products/:id** - Busca produto por ID
-- **POST /products** - Cria novo produto
-- **PUT /products/:id** - Atualiza produto existente
-- **DELETE /products/:id** - Remove produto
+- ✅ Avaliar performance e escalabilidade de aplicações web
+- ✅ Identificar gargalos de sistema sob diferentes cargas
+- ✅ Testar comportamento em cenários realistas (carga esparsa, crescente e picos)
+- ✅ Praticar testes não-funcionais com Apache JMeter
 
-### Endpoints de Teste de Carga
-- **GET /heavy-cpu** - Simula processamento intensivo de CPU (50 milhões de iterações)
-- **GET /heavy-io** - Simula I/O bloqueante (delay de 3 segundos)
-- **GET /random-delay** - Delay aleatório entre 1-5 segundos para testes de latência
-- **GET /many-items** - Retorna 50.000 itens para testar transferência de dados
-- **POST /upload** - Upload de arquivos (multipart/form-data)
-- **GET /status** - Status da aplicação (uptime, timestamp)
+### 🎯 Resultados Obtidos
 
-## 🛠️ Instalação e Configuração
+Foram realizados **3 testes de carga** que revelaram:
 
-### Pré-requisitos
-- Node.js v14 ou superior
-- npm ou yarn
-- Apache JMeter (para executar os testes)
+| Teste | Usuários | Taxa de Erro | Tempo Médio | Throughput |
+|-------|----------|--------------|-------------|------------|
+| **Teste 1** (Carga Esparsa) | 10 | 0.00% ✅ | 1ms | 7.42 req/s |
+| **Teste 2** (Carga Crescente) | 500 | 25.52% ⚠️ | 12.292ms | 18.69 req/s |
+| **Teste 3** (Rajada de Carga) | 1.000 | 39.27% 🔴 | 2.968ms | 122.26 req/s |
 
-### Instalação
+**Conclusão**: Sistema suporta até ~500 usuários simultâneos antes de degradação crítica.
 
-1. Clone este repositório:
+📄 **[Análise completa dos resultados →](docs/README.md)**
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+### Backend
+- **Node.js** v20.14.0 - Runtime JavaScript
+- **Express** 4.18.2 - Framework web minimalista
+- **SQLite3** 5.1.6 - Banco de dados leve e rápido
+
+### Bibliotecas
+- **cors** 2.8.5 - Habilitar CORS
+- **multer** 1.4.5 - Upload de arquivos
+- **body-parser** 1.20.2 - Parse de requisições
+- **cookie-parser** 1.4.6 - Parse de cookies
+
+### Testes
+- **Apache JMeter** 5.6.3 - Ferramenta de testes de carga
+- **Python** 3.12+ (matplotlib, pandas, seaborn) - Geração de gráficos
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+### 1️⃣ Clonar o Repositório
+
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/nkdwon/jmeter-loadtest-webapp.git
 cd jmeter-loadtest-webapp
 ```
 
-2. Instale as dependências:
+### 2️⃣ Instalar Dependências
+
 ```bash
 npm install
 ```
 
-3. Inicialize o banco de dados com dados de teste:
+### 3️⃣ Popular Banco de Dados
+
 ```bash
 npm run seed
 ```
 
-Este comando cria 5.000 produtos no banco SQLite para testes realistas.
+Este comando cria um banco SQLite com **5.000 produtos** para testes realistas.
 
-4. Inicie o servidor:
+### 4️⃣ Iniciar Servidor
+
 ```bash
 npm start
 ```
 
-O servidor estará disponível em `http://localhost:3000`
+O servidor estará disponível em **http://localhost:3000**
 
-## 📊 Estrutura do Projeto
+### 5️⃣ Testar Endpoints
 
+Abra o navegador ou use `curl`:
+
+```bash
+# Listar produtos
+curl http://localhost:3000/products
+
+# Status da aplicação
+curl http://localhost:3000/status
+
+# Interface web
+open http://localhost:3000
 ```
-jmeter-loadtest-webapp/
-├── server.js           # Servidor Express com todas as rotas
-├── db.js              # Configuração do banco SQLite
-├── seed.js            # Script para popular o banco com dados
-├── package.json       # Dependências do projeto
-├── plan.jmx          # Plano de testes JMeter
-├── data.csv          # Dados para parametrização do JMeter
-├── public/           # Arquivos estáticos
-│   ├── index.html    # Interface web principal
-│   ├── product.html  # Página de detalhes do produto
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       └── script.js # Funções JavaScript do frontend
-└── uploads/          # Diretório para arquivos enviados
-```
-
-## 🧪 Testando com JMeter
-
-### Cenários de Teste Sugeridos
-
-#### 1. Carga Esparsa (10-50 usuários)
-```
-Threads: 10-50
-Ramp-up: 30 segundos
-Loop Count: 10
-Endpoints: GET /products, GET /status
-```
-
-#### 2. Carga Crescente (100-500 usuários)
-```
-Threads: 100-500
-Ramp-up: 60-120 segundos
-Loop Count: 5
-Endpoints: GET /products, POST /products, GET /heavy-cpu
-```
-
-#### 3. Rajada de Carga (1000+ usuários)
-```
-Threads: 1000+
-Ramp-up: 10 segundos
-Loop Count: 1
-Endpoints: GET /products, GET /many-items
-```
-
-### Métricas para Análise
-- **Tempo de resposta** (média, mediana, 90º percentil, 95º percentil, 99º percentil)
-- **Taxa de transferência** (requisições/segundo)
-- **Taxa de erro** (%)
-- **Uso de CPU e memória do servidor**
-- **Latência de rede**
-- **Tempo de conexão**
-
-## 📦 Dependências
-
-```json
-{
-  "express": "^4.18.2",
-  "cors": "^2.8.5",
-  "sqlite3": "^5.1.6",
-  "multer": "1.4.5-lts.1",
-  "body-parser": "^1.20.2",
-  "cookie-parser": "^1.4.6"
-}
-```
-
-## 🎯 Objetivos do Desafio MAD
-
-Este projeto atende aos seguintes requisitos do desafio:
-
-✅ Sistema de aplicação web com domínio específico (e-commerce de produtos)  
-✅ Testes de performance em diversos cenários de carga  
-✅ Simulação de condições realistas (carga esparsa, crescente e rajadas)  
-✅ Endpoints específicos para estressar CPU, I/O e rede  
-✅ Banco de dados real (SQLite) com 5.000 registros  
-✅ Interface web funcional  
-✅ Upload de arquivos  
-✅ Monitoramento de status do servidor  
-
-## 📈 Análise de Resultados
-
-Após executar os testes com JMeter, crie gráficos e tabelas analisando:
-
-### Gráficos Recomendados
-1. **Tempo de Resposta vs Número de Usuários**
-2. **Taxa de Transferência (Throughput) ao Longo do Tempo**
-3. **Percentuais de Erro vs Carga**
-4. **Uso de CPU/Memória Durante os Testes**
-5. **Comparação de Latência entre Endpoints**
-
-### Tabelas de Dados
-| Cenário | Usuários | Tempo Médio (ms) | Throughput (req/s) | Taxa de Erro (%) |
-|---------|----------|------------------|-------------------|------------------|
-| Esparsa | 10-50 | - | - | - |
-| Crescente | 100-500 | - | - | - |
-| Rajada | 1000+ | - | - | - |
-
-## 🔧 Troubleshooting
-
-### Problema: Erro ao conectar ao banco de dados
-**Solução**: Execute `npm run seed` para criar o banco de dados
-
-### Problema: Porta 3000 já está em uso
-**Solução**: Altere a constante `PORT` em `server.js` ou encerre o processo usando a porta
-
-### Problema: Uploads não funcionam
-**Solução**: Verifique se o diretório `uploads/` existe
-
-## 🚀 Próximos Passos
-
-Para expandir o projeto:
-
-1. Adicionar autenticação de usuários
-2. Implementar cache (Redis)
-3. Adicionar logging estruturado
-4. Criar dashboard de métricas em tempo real
-5. Implementar rate limiting
-6. Adicionar testes unitários e de integração
-
-## 📝 Licença
-
-MIT
-
-## 👥 Autores
-
-Felipe - PUC Faculdade - Desafio MAD
 
 ---
 
-**Desenvolvido para o Desafio MAD - Testes Não Funcionais com Apache JMeter**
+## 📂 Estrutura do Projeto
+
+```
+jmeter-loadtest-webapp/
+├── 📄 server.js              # Servidor Express com rotas
+├── 📄 db.js                  # Configuração do SQLite
+├── 📄 seed.js                # Popular banco (5.000 produtos)
+├── 📄 package.json           # Dependências do projeto
+│
+├── 📁 public/                # Frontend (HTML, CSS, JS)
+│   ├── index.html
+│   ├── product.html
+│   ├── css/styles.css
+│   └── js/script.js
+│
+├── 📁 docs/                  # 📊 Análise completa dos testes
+│   └── README.md             ⭐ Resultados, insights, estrutura LaTeX
+│
+└── 📁 jmeter/                # 🧪 Testes JMeter
+    ├── README.md             ⭐ Como executar testes
+    ├── config/
+    │   └── plano-testes-basico.jmx
+    └── test-results/
+        ├── teste1-carga-esparsa/
+        ├── teste2-carga-crescente/
+        ├── teste3-rajada-carga/
+        └── analysis/
+            └── graficos/
+```
+
+### 📖 Documentação
+
+- **[docs/README.md](docs/README.md)** - Análise completa dos resultados, insights técnicos e estrutura para relatório
+- **[jmeter/README.md](jmeter/README.md)** - Como rodar testes JMeter, configurações e scripts Python
+
+---
+
+## 🧪 Endpoints Disponíveis
+
+### API REST (Produtos)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/products` | Lista todos os produtos |
+| `GET` | `/products/:id` | Busca produto por ID |
+| `POST` | `/products` | Cria novo produto |
+| `PUT` | `/products/:id` | Atualiza produto |
+| `DELETE` | `/products/:id` | Remove produto |
+
+### Endpoints de Teste de Carga
+
+| Endpoint | Descrição | Uso no Teste |
+|----------|-----------|--------------|
+| `GET /heavy-cpu` | 50M iterações | Testar CPU |
+| `GET /heavy-io` | Delay de 3s | Testar I/O |
+| `GET /many-items` | Retorna 50k itens | Testar transferência |
+| `GET /random-delay` | Delay 1-5s | Testar latência |
+| `POST /upload` | Upload de arquivo | Testar multipart |
+| `GET /status` | Status do servidor | Health check |
+
+---
+
+## 🧪 Executar Testes de Carga
+
+### Pré-requisito: Instalar JMeter
+
+Baixe e instale o Apache JMeter 5.6.3:  
+**https://jmeter.apache.org/download_jmeter.cgi**
+
+### Executar Testes
+
+#### Via Interface Gráfica (Recomendado para visualizar)
+
+```bash
+# Windows
+jmeter.bat
+
+# Linux/Mac
+./jmeter.sh
+```
+
+1. Abrir arquivo: `jmeter/config/plano-testes-basico.jmx`
+2. Clicar em ▶️ (Start) para executar
+3. Visualizar resultados nos listeners
+
+#### Via Linha de Comando (Recomendado para performance)
+
+```bash
+cd jmeter
+
+# Teste 1: Carga Esparsa (10 usuários)
+jmeter -n -t config/plano-testes-basico.jmx -l teste1.jtl
+
+# Teste 2: Carga Crescente (500 usuários)
+jmeter -n -t config/plano-testes-basico.jmx -l teste2.jtl
+
+# Teste 3: Rajada (1000 usuários)
+jmeter -n -t config/plano-testes-basico.jmx -l teste3.jtl
+```
+
+### Gerar Gráficos Comparativos
+
+```bash
+cd jmeter/test-results/analysis
+pip install matplotlib pandas seaborn numpy
+python gerar_graficos.py
+```
+
+**Saída**: 4 gráficos PNG em `graficos/`
+
+📊 **[Ver documentação completa dos testes →](jmeter/README.md)**
+
+---
+
+## 📈 Principais Descobertas
+
+### 🔍 Gargalos Identificados
+
+| Gargalo | Impacto | Teste Afetado |
+|---------|---------|---------------|
+| **Conexões Simultâneas** | 39% erro | Teste 3 (1000 usuários) |
+| **CPU Single-Thread** | 31.84% erro | Teste 2 (/heavy-cpu) |
+| **SQLite Escrita Concorrente** | 19.44% erro | Teste 2 (POST /products) |
+
+### 💡 Insights Principais
+
+1. **Comportamento Não-Linear**: Tempo aumentou 12.000x de 10 para 500 usuários
+2. **Gargalos Múltiplos**: CPU em carga crescente, conexões em rajadas
+3. **Alta Eficiência, Baixa Disponibilidade**: 122 req/s mas 39% erro
+4. **Rede Não é Gargalo**: 50k itens (2-3MB) em apenas 1.3s
+5. **Capacidade Estimada**: ~500 usuários antes de falha crítica
+
+### 🛠️ Recomendações Técnicas
+
+- 🔴 **Crítico**: Aumentar limite de conexões, implementar clustering, migrar para PostgreSQL
+- 🟠 **Alto**: Adicionar Redis cache, load balancer Nginx, otimizar /heavy-cpu
+- 🟡 **Médio**: Rate limiting, circuit breaker pattern
+
+📄 **[Análise detalhada e recomendações →](docs/README.md)**
+
+---
+
+## 📦 Scripts NPM
+
+```bash
+npm start          # Iniciar servidor (porta 3000)
+npm run seed       # Popular banco de dados (5.000 produtos)
+```
+
+---
+
+## 🤝 Contribuindo
+
+Este projeto é acadêmico, mas contribuições são bem-vindas!
+
+1. Fork o projeto
+2. Crie uma branch (`git checkout -b feature/MinhaFeature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
+4. Push para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um Pull Request
+
+---
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+## 👥 Autores
+
+**Felipe** - [GitHub](https://github.com/nkdwon)
+
+Desenvolvido como parte do **Desafio MAD** - PUC Faculdade - Semestre IV
+
+---
+
+## 📚 Referências
+
+- [Apache JMeter Documentation](https://jmeter.apache.org/usermanual/)
+- [Node.js Performance Best Practices](https://nodejs.org/en/docs/guides/)
+- [Express.js Guide](https://expressjs.com/en/guide/routing.html)
+- [SQLite Documentation](https://www.sqlite.org/docs.html)
+
+---
+
+## 🎓 Contexto Acadêmico
+
+### Disciplina
+**MAD - Metodologias Ágeis e DevOps**  
+PUC Faculdade - Semestre IV - 2024
+
+### Objetivos do Desafio
+- ✅ Implementar aplicação web funcional
+- ✅ Realizar testes de carga não-funcionais
+- ✅ Identificar gargalos e limitações
+- ✅ Propor melhorias técnicas
+- ✅ Documentar resultados e análises
+
+### Material para Relatório
+📄 Todo o material para escrever o relatório acadêmico está em **[docs/README.md](docs/README.md)**
+
+Inclui:
+- Resultados detalhados dos 3 testes
+- Explicações técnicas de cada métrica
+- Insights e análises comparativas
+- Estrutura LaTeX completa
+- Tabelas e gráficos prontos
+
+---
+
+<div align="center">
+
+**Feito com ❤️ para aprendizado de testes de performance**
+
+⭐ Se este projeto ajudou você, considere dar uma estrela!
+
+</div>
