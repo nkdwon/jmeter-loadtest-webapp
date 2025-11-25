@@ -1,6 +1,11 @@
+# Dependencies
 node_modules/
-uploads/
+
+# Python virtual environment
+.venv/
+
+# Database (gerado localmente)
 data.db
-report-dir/
-*.log
-.env
+
+# Uploads (arquivos dos usuários)
+uploads/
