@@ -12,7 +12,7 @@ Aplicação Node.js/Express desenvolvida para **testes de carga não-funcionais*
 
 ## 📊 Sobre o Projeto
 
-Este projeto foi desenvolvido como parte do **Desafio MAD (Metodologias Ágeis e DevOps)** da PUC, com o objetivo de:
+Este projeto foi desenvolvido como parte do **Desafio MAD (Modelagem e Avaliação de Desempenho)** da PUC, com o objetivo de:
 
 - ✅ Avaliar performance e escalabilidade de aplicações web
 - ✅ Identificar gargalos de sistema sob diferentes cargas
