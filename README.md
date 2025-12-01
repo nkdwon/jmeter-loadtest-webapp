@@ -136,7 +136,7 @@ jmeter-loadtest-webapp/
 
 ### 📖 Documentação
 
-- **[docs/README.md](docs/README.md)** - Análise completa dos resultados, insights técnicos e estrutura para relatório
+- **[docs/README.md](docs/README.md)** - Análise completa dos resultados e insights técnicos
 - **[jmeter/README.md](jmeter/README.md)** - Como rodar testes JMeter, configurações e scripts Python
 
 ---
