@@ -288,5 +288,3 @@ Consulte a pasta `docs/` para análise completa dos resultados, insights e recom
 **Conclusão**: Sistema suporta até ~500 usuários simultâneos antes de degradação crítica.
 
 ---
-
-_Para análise detalhada, insights técnicos e estrutura do relatório, consulte `docs/README.md`_
