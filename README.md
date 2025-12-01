@@ -12,7 +12,9 @@ Aplicação Node.js/Express desenvolvida para **testes de carga não-funcionais*
 
 ## 📊 Sobre o Projeto
 
-Este projeto foi desenvolvido como parte do **Desafio MAD (Modelagem e Avaliação de Desempenho)** da PUC, com o objetivo de:
+Este projeto foi desenvolvido como parte do **Desafio MAD**, da disciplina de Modelagem e Avaliação de Desempenho do curso de Ciência da Computação da PUC Minas.
+
+Objetivos:
 
 - ✅ Avaliar performance e escalabilidade de aplicações web
 - ✅ Identificar gargalos de sistema sob diferentes cargas
@@ -265,17 +267,18 @@ Este projeto é acadêmico, mas contribuições são bem-vindas!
 
 ---
 
-## 📝 Licença
+## 👥 Autores e contexto acadêmico
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+**Felipe Barros** - [GitHub](https://github.com/nkdwon)
 
----
+**Raquel Motta** - [GitHub](https://github.com/raksmotta)
 
-## 👥 Autores
-
-**Felipe** - [GitHub](https://github.com/nkdwon)
-
-Desenvolvido como parte do **Desafio MAD** - PUC Faculdade - Semestre IV
+### Disciplina
+**MAD - Modelagem e Avaliação de Desempenho**  
+Pontifícia Universidade Católica de Minas Gerais
+Curso de Ciência da Computação
+Semestre IV - 2025/2
+Prof. Luis Enrique Zarate Galvez
 
 ---
 
@@ -288,34 +291,13 @@ Desenvolvido como parte do **Desafio MAD** - PUC Faculdade - Semestre IV
 
 ---
 
-## 🎓 Contexto Acadêmico
+## 📝 Licença
 
-### Disciplina
-**MAD - Metodologias Ágeis e DevOps**  
-PUC Faculdade - Semestre IV - 2024
-
-### Objetivos do Desafio
-- ✅ Implementar aplicação web funcional
-- ✅ Realizar testes de carga não-funcionais
-- ✅ Identificar gargalos e limitações
-- ✅ Propor melhorias técnicas
-- ✅ Documentar resultados e análises
-
-### Material para Relatório
-📄 Todo o material para escrever o relatório acadêmico está em **[docs/README.md](docs/README.md)**
-
-Inclui:
-- Resultados detalhados dos 3 testes
-- Explicações técnicas de cada métrica
-- Insights e análises comparativas
-- Estrutura LaTeX completa
-- Tabelas e gráficos prontos
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
 <div align="center">
-
-**Feito com ❤️ para aprendizado de testes de performance**
 
 ⭐ Se este projeto ajudou você, considere dar uma estrela!
 
